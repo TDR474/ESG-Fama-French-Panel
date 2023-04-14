@@ -1,0 +1,120 @@
+
+. 
+. use "Final_Data.dta", clear
+
+. 
+. *Model without ESG
+. reg yearly_return b_mkt_fama_french_3fac1 mktcap book_to_market1
+
+      Source |       SS           df       MS      Number of obs   =     1,023
+-------------+----------------------------------   F(3, 1019)      =      7.44
+       Model |  4.85374321         3   1.6179144   Prob > F        =    0.0001
+    Residual |   221.67865     1,019   .21754529   R-squared       =    0.0214
+-------------+----------------------------------   Adj R-squared   =    0.0185
+       Total |  226.532393     1,022  .221655962   Root MSE        =    .46642
+
+-----------------------------------------------------------------------------------------
+          yearly_return | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+------------------------+----------------------------------------------------------------
+b_mkt_fama_french_3fac1 |   .0003677   .0001367     2.69   0.007     .0000994     .000636
+                 mktcap |   1.24e-10   1.23e-10     1.01   0.313    -1.17e-10    3.64e-10
+        book_to_market1 |   .0962549   .0253719     3.79   0.000     .0464677     .146042
+                  _cons |   .2020403   .0199571    10.12   0.000     .1628785     .241202
+-----------------------------------------------------------------------------------------
+
+. 
+. *Check for heteroscedasticity
+. estat hettest
+
+Breusch–Pagan/Cook–Weisberg test for heteroskedasticity 
+Assumption: Normal error terms
+Variable: Fitted values of yearly_return
+
+H0: Constant variance
+
+    chi2(1) =  35.99
+Prob > chi2 = 0.0000
+
+. 
+. *Model without ESG factor with robust standard errors
+. reg yearly_return b_mkt_fama_french_3fac1 mktcap book_to_market1, r
+
+Linear regression                               Number of obs     =      1,023
+                                                F(2, 1019)        =          .
+                                                Prob > F          =          .
+                                                R-squared         =     0.0214
+                                                Root MSE          =     .46642
+
+-----------------------------------------------------------------------------------------
+                        |               Robust
+          yearly_return | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+------------------------+----------------------------------------------------------------
+b_mkt_fama_french_3fac1 |   .0003677    .000197     1.87   0.062    -.0000189    .0007543
+                 mktcap |   1.24e-10   7.51e-11     1.65   0.099    -2.35e-11    2.71e-10
+        book_to_market1 |   .0962549   .0424607     2.27   0.024     .0129345    .1795752
+                  _cons |   .2020403   .0241609     8.36   0.000     .1546295    .2494511
+-----------------------------------------------------------------------------------------
+
+. 
+. *Model with ESG factor
+. reg yearly_return b_mkt_fama_french_3fac1 mktcap book_to_market1 SPGlobalESGScore, r
+
+Linear regression                               Number of obs     =      1,023
+                                                F(3, 1018)        =          .
+                                                Prob > F          =          .
+                                                R-squared         =     0.0246
+                                                Root MSE          =     .46589
+
+-----------------------------------------------------------------------------------------
+                        |               Robust
+          yearly_return | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+------------------------+----------------------------------------------------------------
+b_mkt_fama_french_3fac1 |   .0003757   .0001957     1.92   0.055    -8.22e-06    .0007597
+                 mktcap |   7.37e-11   6.37e-11     1.16   0.248    -5.13e-11    1.99e-10
+        book_to_market1 |   .0969818   .0424928     2.28   0.023     .0135983    .1803653
+       SPGlobalESGScore |   .0020206   .0008547     2.36   0.018     .0003435    .0036978
+                  _cons |   .1471107   .0358457     4.10   0.000     .0767708    .2174505
+-----------------------------------------------------------------------------------------
+
+. 
+. *Model with ESG factor and industry categorical variable
+. reg yearly_return b_mkt_fama_french_3fac1 mktcap book_to_market1 SPGlobalESGScore i.industry, r
+
+Linear regression                               Number of obs     =      1,023
+                                                F(13, 1008)       =          .
+                                                Prob > F          =          .
+                                                R-squared         =     0.0707
+                                                Root MSE          =     .45701
+
+-----------------------------------------------------------------------------------------
+                        |               Robust
+          yearly_return | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+------------------------+----------------------------------------------------------------
+b_mkt_fama_french_3fac1 |   .0003155   .0001956     1.61   0.107    -.0000683    .0006993
+                 mktcap |   9.41e-11   6.63e-11     1.42   0.156    -3.60e-11    2.24e-10
+        book_to_market1 |   .0339724   .0354887     0.96   0.339    -.0356677    .1036126
+       SPGlobalESGScore |    .001456   .0008532     1.71   0.088    -.0002182    .0031302
+                        |
+               industry |
+                CONDIS  |  -.0401885   .1126929    -0.36   0.721    -.2613281    .1809511
+               CONSTAP  |  -.3298539   .1097814    -3.00   0.003    -.5452803   -.1144276
+                ENERGY  |   .3282074   .1373939     2.39   0.017     .0585966    .5978182
+                  FINL  |   .0490165   .1067183     0.46   0.646     -.160399    .2584321
+                HEALTH  |  -.1252934   .1302182    -0.96   0.336    -.3808232    .1302364
+                  INDL  |  -.0680092   .1065438    -0.64   0.523    -.2770824    .1410639
+                  REIT  |   -.225518   .1275884    -1.77   0.077    -.4758873    .0248513
+                  TECH  |  -.0767244   .1092542    -0.70   0.483    -.2911161    .1376673
+               TELECOM  |   -.115703   .1457347    -0.79   0.427    -.4016812    .1702752
+                  UTIL  |  -.0522949   .1452499    -0.36   0.719    -.3373217    .2327318
+                        |
+                  _cons |   .2080804   .1096668     1.90   0.058     -.007121    .4232817
+-----------------------------------------------------------------------------------------
+
+. 
+. cap close log
+
+. 
+. 
+end of do-file
+
+. exit

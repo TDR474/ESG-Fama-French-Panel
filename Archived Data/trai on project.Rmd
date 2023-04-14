@@ -1,0 +1,93 @@
+---
+title: "Meteric trial"
+author: "Yui Kan Kong"
+date: "2022-11-11"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+#install.packages("readxl")
+library(readxl)
+library(stringr)
+setwd('/Users/frankzhu/Desktop/Metrics_GP/project-draft')
+df2017=read_excel("Peer View Table for AAPL.O-3.xlsx","Peer View",skip=2)
+df2018=read_excel("Peer View Table for AAPL.O-4.xlsx","Peer View",skip=2)
+df2019=read_excel("Peer View Table for AAPL.O-5.xlsx","Peer View",skip=2)
+df2020=read_excel("Peer View Table for AAPL.O-6.xlsx","Peer View",skip=2)
+df2021=read_excel("Peer View Table for AAPL.O-7.xlsx","Peer View",skip=2)
+df=df2017
+df <- merge(df, df2018, by = c("Company Name"), all = TRUE, suffixes = c(".2017", ".2018")) 
+df <- merge(df, df2019, by=c("Company Name"), all=TRUE, suffixes = c("", ".2019"))
+df <- merge(df, df2020, by=c("Company Name"), all=TRUE, suffixes = c("", ".2020"))
+df <- merge(df, df2021, by=c("Company Name"), all=TRUE, suffixes = c("", ".2021"))
+#myDF <-read.xlsx("/Users/ansonkong/Downloads/Peer View Table for AAPL.O-3.xlsx","Peer View", startRow = 4)
+names(df)<-str_replace_all(names(df), c(" " = "_" , "," = "" ))
+colnames(df)
+summary(df)
+```
+
+
+
+```{r}
+
+df$ESG_Score.2017  <- as.numeric(df$ESG_Score.2017)
+df$ESG_Score.2018  <- as.numeric(df$ESG_Score.2018)
+summary(df)
+fit = lm(`ESG_Score.2018`~`ESG_Score.2017` , data = df)
+summary(fit)
+```
+```{r}
+library(readxl)
+ library(stringr)
+df2017=read_excel("Peer View Table for AAPL.O-3.xlsx","Peer View",skip=2)
+names(df2017)<-str_replace_all(names(df2017), c(" " = "_" , "," = "" ))
+df2017 <- subset(df2017, HQ=="US") 
+df2018=read_excel("Peer View Table for AAPL.O-4.xlsx","Peer View",skip=2)
+names(df2018)<-str_replace_all(names(df2018), c(" " = "_" , "," = "" ))
+df2018 <- subset(df2018, HQ=="US") 
+df2019=read_excel("Peer View Table for AAPL.O-5.xlsx","Peer View",skip=2)
+names(df2019)<-str_replace_all(names(df2019), c(" " = "_" , "," = "" ))
+df2019 <- subset(df2019, HQ=="US") 
+df2020=read_excel("Peer View Table for AAPL.O-6.xlsx","Peer View",skip=2)
+names(df2020)<-str_replace_all(names(df2020), c(" " = "_" , "," = "" ))
+df2020 <- subset(df2020, HQ=="US") 
+df2021=read_excel("Peer View Table for AAPL.O-7.xlsx","Peer View",skip=2)
+names(df2021)<-str_replace_all(names(df2017), c(" " = "_" , "," = "" ))
+df2021 <- subset(df2021, HQ=="US") 
+df=df2017
+
+df <- merge(df,df2018,by=c("Company Name"), all=TRUE,suffixes = c(".2017",".2018"))
+df <- merge(df,df2019,by=c("Company Name"), all=TRUE,suffixes = c("",".2019"))
+df <- merge(df,df2020,by=c("Company Name"), all=TRUE,suffixes = c("",".2020"))
+df <- merge(df,df2021,by=c("Company Name"), all=TRUE,suffixes = c("",".2021"))
+#myDF <-read.xlsx("/Users/ansonkong/Downloads/Peer View Table for AAPL.O-3.xlsx","Peer View", startRow = 4)
+names(df)<-str_replace_all(names(df), c(" " = "_" , "," = "" ))
+colnames(df)
+summary(df)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+nyse <- read.csv("nyse-listed_csv.csv")
+other<-read.csv("other-listed_csv.csv")
+library(dplyr)
+total <- bind_rows(nyse, other)
+sp500 <- read.csv("sp500-master/S&P 500 Historical Components & Changes.csv")
+
+require(httr)
+
+headers = c(
+  `Upgrade-Insecure-Requests` = '1',
+)
+
+params = list(
+  `datatype` = 'json'
+)
+
+res <- httr::GET(url = 'https://financialmodelingprep.com/api/v3/historical/sp500_constituent', httr::add_headers(.headers=headers), query = params)
+
+```
+#another possible dataset https://github.com/fja05680/sp500/blob/master/S%26P%20500%20Historical%20Components%20%26%20Changes(10-14-2022).csv

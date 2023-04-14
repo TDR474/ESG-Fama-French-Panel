@@ -1,0 +1,47 @@
+\begin{center}
+\begin{tabular}{lclc}
+\toprule
+\textbf{Dep. Variable:}                                  &  yearly\_return  & \textbf{  R-squared:         } &     0.060   \\
+\textbf{Model:}                                          &       OLS        & \textbf{  Adj. R-squared:    } &     0.047   \\
+\textbf{Method:}                                         &  Least Squares   & \textbf{  F-statistic:       } &     4.619   \\
+\textbf{Date:}                                           & Tue, 06 Dec 2022 & \textbf{  Prob (F-statistic):} &  3.40e-08   \\
+\textbf{Time:}                                           &     23:19:29     & \textbf{  Log-Likelihood:    } &   -648.63   \\
+\textbf{No. Observations:}                               &        1023      & \textbf{  AIC:               } &     1327.   \\
+\textbf{Df Residuals:}                                   &        1008      & \textbf{  BIC:               } &     1401.   \\
+\textbf{Df Model:}                                       &          14      & \textbf{                     } &             \\
+\bottomrule
+\end{tabular}
+\begin{tabular}{lcccccc}
+                                                         & \textbf{coef} & \textbf{std err} & \textbf{t} & \textbf{P$> |$t$|$} & \textbf{[0.025} & \textbf{0.975]}  \\
+\midrule
+\textbf{Intercept}                                       &       0.1792  &        0.036     &     4.921  &         0.000        &        0.108    &        0.251     \\
+\textbf{b\_mkt\_fama\_french\_3fac1}                     &       0.0004  &        0.000     &     2.637  &         0.008        &     9.11e-05    &        0.001     \\
+\textbf{mktcap}                                          &    9.258e-11  &     1.25e-10     &     0.739  &         0.460        &    -1.53e-10    &     3.38e-10     \\
+\textbf{book\_to\_market1}                               &       0.0562  &        0.027     &     2.071  &         0.039        &        0.003    &        0.109     \\
+\textbf{SPGlobalESGScore}                                &   -4.469e-05  &        0.005     &    -0.009  &         0.993        &       -0.010    &        0.010     \\
+\textbf{icb\_industry\_code[T.CONDIS]:SPGlobalESGScore}  &       0.0007  &        0.005     &     0.149  &         0.881        &       -0.009    &        0.011     \\
+\textbf{icb\_industry\_code[T.CONSTAP]:SPGlobalESGScore} &      -0.0113  &        0.014     &    -0.806  &         0.421        &       -0.039    &        0.016     \\
+\textbf{icb\_industry\_code[T.ENERGY]:SPGlobalESGScore}  &       0.0107  &        0.005     &     2.071  &         0.039        &        0.001    &        0.021     \\
+\textbf{icb\_industry\_code[T.FINL]:SPGlobalESGScore}    &       0.0029  &        0.005     &     0.585  &         0.559        &       -0.007    &        0.013     \\
+\textbf{icb\_industry\_code[T.HEALTH]:SPGlobalESGScore}  &      -0.0003  &        0.006     &    -0.059  &         0.953        &       -0.011    &        0.011     \\
+\textbf{icb\_industry\_code[T.INDL]:SPGlobalESGScore}    &   -5.141e-05  &        0.005     &    -0.010  &         0.992        &       -0.010    &        0.010     \\
+\textbf{icb\_industry\_code[T.REIT]:SPGlobalESGScore}    &      -0.0034  &        0.006     &    -0.553  &         0.581        &       -0.015    &        0.009     \\
+\textbf{icb\_industry\_code[T.TECH]:SPGlobalESGScore}    &       0.0006  &        0.005     &     0.130  &         0.897        &       -0.009    &        0.010     \\
+\textbf{icb\_industry\_code[T.TELECOM]:SPGlobalESGScore} &      -0.0019  &        0.006     &    -0.306  &         0.759        &       -0.014    &        0.010     \\
+\textbf{icb\_industry\_code[T.UTIL]:SPGlobalESGScore}    &       0.0019  &        0.006     &     0.318  &         0.750        &       -0.010    &        0.014     \\
+\bottomrule
+\end{tabular}
+\begin{tabular}{lclc}
+\textbf{Omnibus:}       & 883.525 & \textbf{  Durbin-Watson:     } &     1.937  \\
+\textbf{Prob(Omnibus):} &   0.000 & \textbf{  Jarque-Bera (JB):  } & 57717.964  \\
+\textbf{Skew:}          &   3.557 & \textbf{  Prob(JB):          } &      0.00  \\
+\textbf{Kurtosis:}      &  39.104 & \textbf{  Cond. No.          } &  3.33e+08  \\
+\bottomrule
+\end{tabular}
+%\caption{OLS Regression Results}
+\end{center}
+
+Notes: \newline
+ [1] Standard Errors assume that the covariance matrix of the errors is correctly specified. \newline
+ [2] The condition number is large, 3.33e+08. This might indicate that there are \newline
+ strong multicollinearity or other numerical problems.
