@@ -1,0 +1,20 @@
+linters: with_defaults(
+  camel_case_linter = NULL,
+  assignment_linter = NULL,
+  assignment_spaces_linter = NULL,
+  spaces_behind_linter = NULL,
+  spaces_inside_linter = NULL,
+  commented_code_linter = NULL,
+  infix_spaces_linter = NULL,
+  commas_linter = NULL,
+  trailing_whitespace_linter = NULL,
+  line_length_linter = NULL,
+  T_and_F_symbol_linter = NULL,
+  trailing_blank_lines_linter = NULL,
+  single_quotes_linter = NULL,
+  object_name_linter = NULL
+  )
+exclude: "# Exclude Linting"
+exclude_start: "# Begin Exclude Linting"
+exclude_end: "# End Exclude Linting"
+encoding: "ISO-8859-1"
