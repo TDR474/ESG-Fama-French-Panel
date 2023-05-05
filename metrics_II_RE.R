@@ -14,6 +14,7 @@ library(mctest)
 library("writexl")
 library('plm')
 library(pedometrics)
+library(vtable)
 library('MCMCpack')
 library(kableExtra)
 
@@ -125,13 +126,22 @@ phtest(re_2, fe_2)
 phtest(re_3, fe_3)
 
 #---------------------------------#
-# Summary Stats & Kable output
-kable(summary(df_panel[c("monthly_excess_return_100","risk_premium","SMB","HML","sp_esg_score","env_dim","social_dim","economic_gov_dim")]), 
-      caption = "Summary Statistics") %>%
+# Summary Stats & Kable output (used in presentation)
+
+df_panel["monthly_excess_ret"] = df_panel["monthly_excess_return_100"]
+kable(summary(df_panel[c("monthly_excess_ret","risk_premium","SMB","HML","sp_esg_score","env_dim","social_dim","economic_gov_dim")])) %>%
   kable_styling(latex_options = "scale_down") %>%
-  add_header_above(c(" " = 1, "Summary Statistics" = 8)) %>%
-  footnote(general = "Calculations using data from CRSP and WRDS") %>%
+  footnote(general = "Calculations using data from WRDS") %>%
   kable_paper(full_width = F)
+sum(df_panel$env_dim == 0)
+
+# Latex summary stats output (used in paper)
+df_panel_summary <- df_panel[c("monthly_excess_ret","risk_premium","SMB","HML","sp_esg_score","env_dim","social_dim","economic_gov_dim")]
+df_panel_summary[df_panel_summary == 0] <- NA
+st(df_panel_summary)
+st(df_panel_summary,out='latex',file='sum_stats')
+
+# Calculate the sum
 sum(df_panel$env_dim == 0)
 
 #---------------------------------#
